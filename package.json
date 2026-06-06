@@ -1,0 +1,37 @@
+{
+	"name": "my-app",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"build": "tsc -b && vite build",
+		"check": "biome check .",
+		"check:fix": "biome check --write .",
+		"prepare": "simple-git-hooks",
+		"preview": "vite preview"
+	},
+	"simple-git-hooks": {
+		"pre-commit": "pnpm lint-staged"
+	},
+	"lint-staged": {
+		"*": "biome check --write --no-errors-on-unmatched"
+	},
+	"dependencies": {
+		"@tailwindcss/vite": "^4.3.0",
+		"react": "^19.2.6",
+		"react-dom": "^19.2.6",
+		"tailwindcss": "^4.3.0"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.4.16",
+		"@types/node": "^24.12.3",
+		"@types/react": "^19.2.14",
+		"@types/react-dom": "^19.2.3",
+		"@vitejs/plugin-react": "^6.0.1",
+		"lint-staged": "^17.0.7",
+		"simple-git-hooks": "^2.13.1",
+		"typescript": "~6.0.2",
+		"vite": "^8.0.12"
+	}
+}
