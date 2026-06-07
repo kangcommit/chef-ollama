@@ -6,7 +6,9 @@ You are an assistant that receives a list of ingredients that a user has and sug
 
 const ollama = new Ollama();
 
-export async function getRecipeFromOllama(ingredientsArr: string[]) {
+export async function getRecipeFromOllama(
+	ingredientsArr: string[],
+): Promise<string> {
 	const ingredientsString = ingredientsArr.join(", ");
 
 	const response = await ollama.chat({
@@ -20,6 +22,5 @@ export async function getRecipeFromOllama(ingredientsArr: string[]) {
 		],
 	});
 
-	console.log(response);
 	return response.message.content;
 }

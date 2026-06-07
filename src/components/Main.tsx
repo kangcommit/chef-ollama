@@ -10,7 +10,7 @@ function Main(): JSX.Element {
 
 	const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
-	async function getRecipe() {
+	async function getRecipe(): Promise<void> {
 		setIsLoading((prevLoading) => !prevLoading);
 		try {
 			const recipeMarkDown = await getRecipeFromOllama(ingredients);
