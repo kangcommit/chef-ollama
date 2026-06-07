@@ -32,7 +32,7 @@ function Main(): JSX.Element {
 				</button>
 			</form>
 
-			<IngredientsList ingredients={ingredients} />
+			{ingredients.length > 0 && <IngredientsList ingredients={ingredients} />}
 		</main>
 	);
 }
