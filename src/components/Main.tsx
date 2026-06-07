@@ -8,9 +8,16 @@ function Main(): JSX.Element {
 
 	const [recipe, setRecipe] = React.useState<string>("");
 
+	const [isLoading, setIsLoading] = React.useState<boolean>(false);
+
 	async function getRecipe() {
-		const recipeMarkDown = await getRecipeFromOllama(ingredients);
-		setRecipe(recipeMarkDown);
+		setIsLoading((prevLoading) => !prevLoading);
+		try {
+			const recipeMarkDown = await getRecipeFromOllama(ingredients);
+			setRecipe(recipeMarkDown);
+		} finally {
+			setIsLoading((prevLoading) => !prevLoading);
+		}
 	}
 
 	function addIngredient(formData: FormData): void {
@@ -45,7 +52,9 @@ function Main(): JSX.Element {
 				<IngredientsList ingredients={ingredients} getRecipe={getRecipe} />
 			)}
 
-			{recipe && <OllamaRecipe recipe={recipe} />}
+			{(isLoading || recipe) && (
+				<OllamaRecipe recipe={recipe} isLoading={isLoading} />
+			)}
 		</main>
 	);
 }
