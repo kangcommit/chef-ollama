@@ -1,10 +1,23 @@
-import type { JSX } from "react";
+import React, { type JSX } from "react";
+import IngredientsList from "./IngredientsList";
 
 function Main(): JSX.Element {
+	const [ingredients, setIngredients] = React.useState<string[]>([]);
+
+	function addIngredient(formData: FormData): void {
+		const newIngredient = formData.get("ingredient");
+		if (typeof newIngredient !== "string") return;
+		setIngredients((prevIngredients) => [...prevIngredients, newIngredient]);
+	}
+
 	return (
-		<main>
-			<form className="mx-16 mt-17 flex flex-row gap-3 justify-center">
+		<main className=" bg-[#FAFAF8] min-h-svh">
+			<form
+				action={addIngredient}
+				className="px-16 pt-17 flex flex-row gap-3 justify-center"
+			>
 				<input
+					required
 					type="text"
 					name="ingredient"
 					placeholder="e.g. oregano"
@@ -18,6 +31,8 @@ function Main(): JSX.Element {
 					+ Add ingredient
 				</button>
 			</form>
+
+			<IngredientsList ingredients={ingredients} />
 		</main>
 	);
 }
