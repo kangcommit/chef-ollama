@@ -1,41 +1,29 @@
-# React + TypeScript + Vite Template
+# Chef Ollama
 
-A modern React template with TypeScript, Vite, Tailwind CSS v4, and Biome for linting.
+A React app that generates recipe suggestions based on ingredients you have using [Ollama](https://github.com/ollama/ollama).
 
-## Features
+## How It Works
 
-- ⚡️ [Vite](https://vite.dev/) - Next generation frontend tooling
-- ⚛️ [React](https://react.dev/) - UI library
-- 📘 [TypeScript](https://www.typescriptlang.org/) - Typed JavaScript
-- 🎨 [Tailwind CSS v4](https://tailwindcss.com/) - Utility-first CSS
-- 🔧 [Biome](https://biomejs.dev/) - Fast linter and formatter
-- 🪝 [simple-git-hooks](https://github.com/toplenordr/simple-git-hooks) - Git hooks
-- 📝 [lint-staged](https://github.com/lint-staged/lint-staged) - Run linters on staged files
+1. Enter the ingredients you have available
+2. Click "Generate Recipe"
+3. Ollama generates a recipe based on your ingredients
+
+## Requirements
+
+- [Ollama](https://github.com/ollama/ollama) installed and running locally
+- Node.js & pnpm
 
 ## Getting Started
-
-1. Update the `name` in `package.json` with your project name
-2. Update the `title` in `index.html`
-3. Optional: Update the `version` in `package.json`
 
 ```bash
 # Install dependencies
 pnpm install
 
+# Make sure Ollama is running
+ollama serve
+
 # Start development server
 pnpm dev
-
-# Build for production
-pnpm build
-
-# Preview production build
-pnpm preview
-
-# Run lint check
-pnpm check
-
-# Fix lint issues automatically
-pnpm check:fix
 ```
 
 ## Project Structure
@@ -44,30 +32,62 @@ pnpm check:fix
 src/
 ├── main.tsx       # Entry point
 ├── App.tsx        # Main app component
+├── ai.ts          # Ollama AI integration
 ├── style.css      # Global styles (Tailwind)
+├── components/
+│   ├── Header.tsx         # App header
+│   ├── IngredientsList.tsx # Ingredients input
+│   ├── Main.tsx           # Main content
+│   └── OllamaRecipe.tsx   # Recipe display
 └── assets/        # Static assets
 ```
 
-## Tools
+## Tech Stack
 
-### Vite Plugins
+- [React](https://react.dev/) - UI library
+- [TypeScript](https://www.typescriptlang.org/) - Typed JavaScript
+- [Vite](https://vite.dev/) - Build tool
+- [Tailwind CSS v4](https://tailwindcss.com/) - Styling
+- [Ollama](https://github.com/ollama/ollama) - Local AI model
+- [React Markdown](https://github.com/remarkjs/react-markdown) - Render Markdown responses
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react) - Uses [Oxc](https://oxc.rs) for fast React HMR
+## Example
 
-### Linting & Formatting
-
-This project uses [Biome](https://biomejs.dev/) instead of ESLint/Prettier for better performance:
-
-```bash
-# Check files
-pnpm check
-
-# Fix issues
-pnpm check:fix
+**Input:**
+```
+chicken, garlic, soy sauce, rice
 ```
 
-Configuration is in `biome.json`.
+**Output:**
+```markdown
+## Garlic Soy Chicken with Rice
 
-### Git Hooks
+### Ingredients
+- 500g chicken breast
+- 4 cloves garlic, minced
+- 3 tbsp soy sauce
+- 1 cup rice
+- 1 tbsp sesame oil
+- Green onions for garnish
 
-Pre-commit hooks are automatically set up via `simple-git-hooks` and `lint-staged`. Before each commit, staged files will be automatically formatted and linted.
+### Instructions
+1. Cook rice according to package instructions...
+```
+
+## Troubleshooting
+
+### Ollama not connecting?
+Make sure Ollama is running:
+```bash
+ollama serve
+```
+
+### Model not found?
+Pull the required model:
+```bash
+ollama pull gemma4:31b-cloud
+```
+
+## License
+
+MIT
