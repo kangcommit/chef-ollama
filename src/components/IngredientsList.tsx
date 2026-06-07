@@ -2,14 +2,18 @@ import type { JSX } from "react";
 
 type IngredientsListProps = {
 	ingredients: string[];
+	getRecipe: () => void;
 };
 
-function IngredientsList({ ingredients }: IngredientsListProps): JSX.Element {
+function IngredientsList({
+	ingredients,
+	getRecipe,
+}: IngredientsListProps): JSX.Element {
 	const ingredientsListItems = ingredients.map((ingredient) => (
 		<li key={ingredient}> {ingredient}</li>
 	));
 	return (
-		<section className="mx-16 mt-12 mb-15">
+		<section className="mt-12 mb-15">
 			<h2 className="font-semibold text-3xl text-[#141413] mb-6">
 				Ingredients on hand:
 			</h2>
@@ -28,7 +32,8 @@ function IngredientsList({ ingredients }: IngredientsListProps): JSX.Element {
 					</div>
 					<button
 						type="button"
-						className="rounded-lg bg-[#D17557] shadow-sm font-medium text-sm text-[#FAFAF8] px-4 py-2"
+						onClick={getRecipe}
+						className="rounded-lg bg-[#D17557] shadow-sm font-medium text-sm text-[#FAFAF8] px-4 py-2 cursor-pointer"
 					>
 						Get a recipe
 					</button>

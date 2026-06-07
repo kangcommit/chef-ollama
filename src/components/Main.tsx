@@ -1,8 +1,17 @@
 import React, { type JSX } from "react";
+import { getRecipeFromOllama } from "../ai";
 import IngredientsList from "./IngredientsList";
+import OllamaRecipe from "./OllamaRecipe";
 
 function Main(): JSX.Element {
 	const [ingredients, setIngredients] = React.useState<string[]>([]);
+
+	const [recipe, setRecipe] = React.useState<string>("");
+
+	async function getRecipe() {
+		const recipeMarkDown = await getRecipeFromOllama(ingredients);
+		setRecipe(recipeMarkDown);
+	}
 
 	function addIngredient(formData: FormData): void {
 		const newIngredient = formData.get("ingredient");
@@ -11,7 +20,7 @@ function Main(): JSX.Element {
 	}
 
 	return (
-		<main className=" bg-[#FAFAF8] min-h-svh">
+		<main className="bg-[#FAFAF8] min-h-svh px-16">
 			<form
 				action={addIngredient}
 				className="px-16 pt-17 flex flex-row gap-3 justify-center"
@@ -32,7 +41,11 @@ function Main(): JSX.Element {
 				</button>
 			</form>
 
-			{ingredients.length > 0 && <IngredientsList ingredients={ingredients} />}
+			{ingredients.length > 0 && (
+				<IngredientsList ingredients={ingredients} getRecipe={getRecipe} />
+			)}
+
+			{recipe && <OllamaRecipe recipe={recipe} />}
 		</main>
 	);
 }
